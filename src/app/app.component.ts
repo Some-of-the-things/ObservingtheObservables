@@ -11,7 +11,7 @@ import { routes } from './app.routes';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  routes = routes as [{ path: string; data: { page: number } }];
+  routes = routes as [{ path: string; data: { page: number, title: string } }];
   router = inject(Router);
   changeDetectorRef = inject(ChangeDetectorRef);
   isRoot = false;

@@ -6,11 +6,11 @@ export const routes: Routes = [
   {
     path: 'observable-itself',
     component: TheObservableItself1Component,
-    data: { page: 1 },
+    data: { page: 1, title: 'The Observable Itself' },
   },
   {
     path: 'observable-errors',
     component: ErrorsInTheObservable2Component,
-    data: { page: 2 },
+    data: { page: 2, title: 'Errors in the Observable'},
   }
 ];

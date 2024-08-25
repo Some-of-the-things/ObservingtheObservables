@@ -1,1 +1,8 @@
-<p>errors-in-the-observable-2 works!</p>
+<div>
+  <h1>Errors in the Observable</h1>
+  <button (click)="getTodo(999)">Get Todo</button>
+  Result: {{ httpData | json }}
+  @if(errorMessage) {
+    <span style="color: red;">{{ errorMessage }}</span>
+  }
+</div>
