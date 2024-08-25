@@ -1,10 +1,12 @@
 
 @if(isRoot) {
-    @for(route of routes; track route) {
-    @if(route?.data) {
-      Lesson {{route.data.page}}: <a [routerLink]="route.path">{{route.path}}</a>
+    <div>
+      @for(route of routes; track route) {
+        @if(route?.data) {
+          Lesson {{route.data.page}}: <a [routerLink]="route.path">{{route.data.title}}</a>
+        }
     }
-  }
+  </div>
 } @else {
   <router-outlet></router-outlet>
 }
