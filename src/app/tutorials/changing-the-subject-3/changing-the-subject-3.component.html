@@ -1,1 +1,11 @@
-<p>changing-the-subject-3 works!</p>
+<h1>Change the Subject</h1>
+<label for="subject">New Subject:</label>
+<input id="subjectChange" [(ngModel)]="subjectChange" name="subjectChange">
+<br>
+The subject is: {{ theSubject }}
+<br>
+The type of subject is: {{ behavior ? 'behavior' : 'ordinary subject'}}
+<br>
+<button (click)="changeSubject()"> Change Subject </button>
+<button (click)="changeBehavior()"> Change Behavior </button>
+<button (click)="forgetSubject()"> Forget Subject </button>
