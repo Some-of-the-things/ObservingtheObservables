@@ -88,68 +88,68 @@ describe('Mapsandmarbles5', () => {
         }
       });
     });
+  });
 
-    describe('mergeMap', () => {
-      it('merges two observables into one', () => {
-        testScheduler.run((helpers) => {
-          const { cold, hot, expectObservable } = helpers;
+  describe('mergeMap', () => {
+    it('merges two observables into one', () => {
+      testScheduler.run((helpers) => {
+        const { cold, hot, expectObservable } = helpers;
 
-          const motionScan = cold(  's---s');
-          const legMovements = cold('ll-----l');
-          const armMovements = hot(' --a-aa');
-          const expected = 'll---a-l';
+        const motionScan = cold(  's---s');
+        const legMovements = cold('ll-----l');
+        const armMovements = hot(' --a-aa');
+        const expected = 'll---a-l';
 
-          const motionDetector = getMotion();
+        const motionDetector = getMotion();
 
-          const bodyMovements = motionScan.pipe(
-            mergeMap(() => {
-              return motionDetector.next().value!;
-            }
-          ));
-
-          function* getMotion() {
-            yield legMovements;
-            yield armMovements;
+        const bodyMovements = motionScan.pipe(
+          mergeMap(() => {
+            return motionDetector.next().value!;
           }
+        ));
 
-          expectObservable(bodyMovements).toBe(expected);
-        });
+        function* getMotion() {
+          yield legMovements;
+          yield armMovements;
+        }
+
+        expectObservable(bodyMovements).toBe(expected);
       });
     });
+  });
 
-    describe('exhaustMap', () => {
-      it('waits for the previous Observable to complete before outputting values from the new one', () => {
-        testScheduler.run((helpers) => {
-          const { cold, hot, expectObservable } = helpers;
+  describe('exhaustMap', () => {
+    it('waits for the previous Observable to complete before outputting values from the new one', () => {
+      testScheduler.run((helpers) => {
+        const { cold, hot, expectObservable } = helpers;
 
-          const values = {
-            a: 'salt',
-            b: 'carrot',
-            c: 'coriander',
-            d: 'beef',
-            e: 'stock',
-          };
+        const values = {
+          a: 'salt',
+          b: 'carrot',
+          c: 'coriander',
+          d: 'beef',
+          e: 'stock',
+        };
 
-          const chef = cold('      cc------c');
-          const soupRecipe = cold('a-c-b-e|', values);
-          const beefRecipe = hot('-b---------d-a-b-c', values);
-          const expected = '      a-c-b-e----d-a-b-c';
+        const chef = cold('      cc------c');
+        const soupRecipe = cold('a-c-b-e|', values);
+        const beefRecipe = hot('-b---------d-a-b-c', values);
+        const expected = '      a-c-b-e----d-a-b-c';
 
-          const recipeStorage = getRecipe();
+        const recipeStorage = getRecipe();
 
-          const chefActions = chef.pipe(
-            exhaustMap(() => {
-              return recipeStorage.next().value!;
-            })
-          );
+        const chefActions = chef.pipe(
+          exhaustMap(() => {
+            return recipeStorage.next().value!;
+          })
+        );
 
-          function* getRecipe() {
-            yield soupRecipe;
-            yield beefRecipe;
-          }
+        function* getRecipe() {
+          yield soupRecipe;
+          yield beefRecipe;
+        }
 
-          expectObservable(chefActions).toBe(expected, values);
-        });
+        expectObservable(chefActions).toBe(expected, values);
       });
     });
   });
